@@ -6,12 +6,36 @@ import Service from "../services/Service";
 import * as Colors from "../assets/theme/colors";
 import WidgetCard from "../components/CustomWidget";
 import SaveIcon from "@mui/icons-material/Save";
+import FormModal from "./FormModal";
+
+const initialModal = {
+  isOpen: false,
+  rowData: null,
+};
 
 function MainDashboard() {
   const [dynamicRender, setDynamicRender] = useState();
+  const [formModalProps, setFormModalProps] = useState(initialModal);
   const retrieveDynamicRender = async () => {
     const response = await Service.getDynamicJson(2);
     setDynamicRender(response.data.data);
+  };
+
+  const formModalOpenHandler = (data) => {
+    let rowData = {};
+    rowData = {
+      data,
+    };
+
+    setFormModalProps((prevState) => ({
+      ...prevState,
+      ["isOpen"]: true,
+      ["rowData"]: rowData,
+    }));
+  };
+
+  const formModalCloseHandler = () => {
+    setFormModalProps(initialModal);
   };
 
   useEffect(() => {
@@ -70,11 +94,7 @@ function MainDashboard() {
                       key={index}
                       index={index + 1}
                       data={data}
-                      //   fieldTestFormModalOpenHandler={fieldTestFormModalOpenHandler}
-                      //   fieldTestFeedbackModalOpenHandler={
-                      //     fieldTestFeedbackModalOpenHandler
-                      //   }
-                      //   setShowPreview={setShowPreview}
+                      formModalOpenHandler={formModalProps}
                     />
                   </>
                 ))}
@@ -96,23 +116,12 @@ function MainDashboard() {
           </Button>
         </Grid>
       </Grid>
-      {/* <FieldTestDialog
-        modalProps={fieldTestFormModalProps}
-        closeModalHandler={fieldTestFormModalCloseHandler}
-        submitModalHandler={handleFormSubmitFieldTest}
-        validationSchema={validationSchemaFieldTest}
+      <FormModal
+        modalProps={formModalProps}
+        closeModalHandler={formModalCloseHandler}
+        // submitModalHandler={handleFormSubmitFieldTest}
+        // validationSchema={validationSchemaFieldTest}
       />
-      <NotesDialog
-        modalProps={fieldTestNoteModalProps}
-        closeModalHandler={fieldTestNoteModalCloseHandler}
-        submitModalHandler={handleNoteSubmitFieldTest}
-      />
-      <FeedbackDialog
-        modalProps={fieldTestFeedbackModalProps}
-        closeModalHandler={fieldTestFeedbackModalCloseHandler}
-        submitModalHandler={handleFeedbackSubmitFieldTest}
-        validationSchema={validationSchemaFeedback}
-      /> */}
     </>
   );
 }

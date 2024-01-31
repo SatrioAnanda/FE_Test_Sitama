@@ -44,9 +44,7 @@ const WidgetCard = (props) => {
             color: Colors.White,
             borderRadius: "15px",
           }}
-          onClick={() =>
-            props.fieldTestFormModalOpenHandler(props.fieldTestData)
-          }
+          onClick={() => props.formModalOpenHandler(props.data.json)}
         >
           Edit
         </Button>
