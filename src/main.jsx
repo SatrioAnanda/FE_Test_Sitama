@@ -15,6 +15,7 @@ import {
   Red,
   LandingLayoutAppBarColor,
 } from "../src/assets/theme/colors.js";
+import React from "react";
 
 const theme = createTheme({
   typography: {
@@ -60,9 +61,11 @@ const theme = createTheme({
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <ThemeProvider theme={theme}>
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="id">
-      <App />
-    </LocalizationProvider>
-  </ThemeProvider>
+  <React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="id">
+        <App />
+      </LocalizationProvider>
+    </ThemeProvider>
+  </React.StrictMode>
 );
