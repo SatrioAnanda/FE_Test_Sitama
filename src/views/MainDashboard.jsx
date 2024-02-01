@@ -16,6 +16,7 @@ const initialModal = {
 function MainDashboard() {
   const [dynamicRender, setDynamicRender] = useState();
   const [formModalProps, setFormModalProps] = useState(initialModal);
+  
   const retrieveDynamicRender = async () => {
     const response = await Service.getDynamicJson(2);
     setDynamicRender(response.data.data);
@@ -94,7 +95,7 @@ function MainDashboard() {
                       key={index}
                       index={index + 1}
                       data={data}
-                      formModalOpenHandler={formModalProps}
+                      formModalOpenHandler={formModalOpenHandler}
                     />
                   </>
                 ))}
